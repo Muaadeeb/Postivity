@@ -1,0 +1,98 @@
+﻿@page "/user"
+
+@using Business.Repository.Interfaces;
+@using Models
+
+@inject NavigationManager _navigationManager;
+@inject IUserRepository _user;
+@inject IJSRuntime _jsRunTime;
+
+@*@attribute [Authorize(Roles = Common.StaticDetails.Role_Admin)]*@
+
+<div class="row mt-4">
+    <div class="col">
+        <h4 class="card-title text-info">User List</h4>
+    </div>
+    <div class="col-3 offset-1">
+        <NavLink href="user/create" class="btn btn-info form-control">Add New User (temporary for testing purposes).  Will remove later once the User authentication(user creation system) is in place.</NavLink>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Photo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Users.Any())
+                {
+                    foreach (var user in Users)
+                    {
+                        <tr>
+                            <td>@user.Name</td>
+                            <td>@user.Description</td>
+                            <td>@user.Email</td>
+                            <td>@user.PhoneNo</td>
+                            <td>@user.Photo</td>
+                            <td>
+                                <NavLink href="@($"user/edit/{user.Id}")" class="btn btn-primary">Edit</NavLink>
+                                <button class="btn btn-danger" @onclick="()=>HandleDelete(user.Id)">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">No reccords found</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<DeleteConfirmation IsParentComponentProcessing="IsProcessing" ConfirmationChanged="ConfirmDelete_Click"></DeleteConfirmation>
+
+
+@code {
+    private IEnumerable<UserDTO> Users { get; set; } = new List<UserDTO>();
+    private int? DeleteUserId { get; set; } = null;
+    private bool IsProcessing { get; set; } = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        Users = await _user.GetAllUsersAsync();
+    }
+
+    private async Task HandleDelete(int userId)
+    {
+        DeleteUserId = userId;
+        //IsDeleteProcessComplete = false;
+        await _jsRunTime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsProcessing = true;
+        if (isConfirmed && DeleteUserId != null)
+        {
+            UserDTO userDto = await _user.GetUserAsync(DeleteUserId.Value);
+
+            await _user.DeleteUserAsync(DeleteUserId.Value);
+            await _jsRunTime.ToastrSuccess("User Deleted successfully");
+            Users = await _user.GetAllUsersAsync();
+        }
+
+        await _jsRunTime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        IsProcessing = false;
+    }
+}

@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "8f7d8e5e-b839-4969-9bc6-351a495c14d2": {
+      "ProjectGuid": "8f7d8e5e-b839-4969-9bc6-351a495c14d2",
+      "DisplayName": "Positivity",
+      "ColorIndex": 0
+    },
+    "bcde2c2b-82b6-4939-ad39-a0be71b2305d": {
+      "ProjectGuid": "bcde2c2b-82b6-4939-ad39-a0be71b2305d",
+      "DisplayName": "Blazor_Server",
+      "ColorIndex": 1
+    },
+    "0d260827-50e6-400e-ac77-a440233e394e": {
+      "ProjectGuid": "0d260827-50e6-400e-ac77-a440233e394e",
+      "DisplayName": "Business",
+      "ColorIndex": 2
+    },
+    "3ac53301-9949-4d5f-bc62-59cf2e2b2a7f": {
+      "ProjectGuid": "3ac53301-9949-4d5f-bc62-59cf2e2b2a7f",
+      "DisplayName": "DataAccess",
+      "ColorIndex": 3
+    },
+    "0be73aa3-5f68-43c2-bee5-c50f138014c4": {
+      "ProjectGuid": "0be73aa3-5f68-43c2-bee5-c50f138014c4",
+      "DisplayName": "Models",
+      "ColorIndex": 4
+    },
+    "ed8d4201-64f9-4663-b009-c5182b2d838a": {
+      "ProjectGuid": "ed8d4201-64f9-4663-b009-c5182b2d838a",
+      "DisplayName": "Common",
+      "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 6
+}

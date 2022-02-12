@@ -1,0 +1,168 @@
+﻿@page "/user/create"
+@page "/user/edit/{Id:int}"
+
+@using Business.Repository.Interfaces;
+@using Models
+
+@inject NavigationManager _navigationManager;
+@inject IUserRepository _user;
+@inject IJSRuntime _jsRunTime;
+
+
+@*@attribute [Authorize]*@
+@*@attribute [Authorize(Roles = Common.SD.Role_Admin)]*@
+
+<div class="row mt-2 mb-5">
+    <h3 class="card-title text-info mb-3 ml-3">@Title User EPIC Maintence</h3>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <EditForm Model="UserDto" OnValidSubmit="HandleUserUpsert">
+                    <DataAnnotationsValidator></DataAnnotationsValidator>
+                    <div class="form-group">
+                        <label>Name</label>
+                        <InputText @bind-Value="UserDto.Name" class="form-control" />
+                        <ValidationMessage For="()=> UserDto.Name"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <InputText @bind-Value="UserDto.Email" class="form-control" />
+                        <ValidationMessage For="()=> UserDto.Email"></ValidationMessage>
+                    </div>
+                    <div class="form-group">
+                        <label>Phone Number</label>
+                        <InputText @bind-Value="UserDto.PhoneNo" class="form-control" />
+                    </div>
+                    <div class="form-group" style="height: 250px;">
+                        <label>Description</label>
+                        @*<InputTextArea @bind-Value="UserDto.Details" class="form-control" />*@
+                        <BlazoredTextEditor @ref="@QuillHtml" Placeholder="Please enter user bio information">
+                            <ToolbarContent>
+                                <select class="ql-header">
+                                    <option selected=""></option>
+                                    <option value="1"></option>
+                                    <option value="2"></option>
+                                    <option value="3"></option>
+                                    <option value="4"></option>
+                                    <option value="5"></option>
+                                </select>
+                                <span class="ql-formats">
+                                    <button class="ql-bold"></button>
+                                    <button class="ql-italic"></button>
+                                    <button class="ql-underline"></button>
+                                    <button class="ql-strike"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <select class="ql-color"></select>
+                                    <select class="ql-background"></select>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-list" value="ordered"></button>
+                                    <button class="ql-list" value="bullet"></button>
+                                </span>
+                                <span class="ql-formats">
+                                    <button class="ql-link"></button>
+                                </span>
+                            </ToolbarContent>
+                            <EditorContent>
+                            </EditorContent>
+                        </BlazoredTextEditor>
+                    </div>
+                    <div class="form-group" style="margin-top: 100px">
+                        <button class="btn btn-primary">@Title User </button>
+                        <NavLink href="user" class="btn btn-secondary">Back to Index</NavLink>
+                    </div>
+                </EditForm>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@code {
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    private UserDTO UserDto { get; set; } = new UserDTO();
+    private string Title { get; set; } = "Create";
+    public BlazoredTextEditor QuillHtml { get; set; } = new BlazoredTextEditor();
+
+    [CascadingParameter]
+    public Task<AuthenticationState> AuthenticationState { get; set; }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        if (Id != null)
+        {
+            Title = "Update";
+            UserDto = await _user.GetUserAsync(Id.Value);
+        }
+        else
+        {
+            Title = "Create";
+            UserDto = new UserDTO();
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+
+        bool loading = true;
+        while (loading)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(UserDto.Description))
+                {
+                    await QuillHtml.LoadHTMLContent(UserDto.Description);
+                }
+
+                loading = false;
+            }
+            catch
+            {
+                await Task.Delay(10);
+                loading = true;
+                await _jsRunTime.ToastrError("Possible issue with loading html text content - worry if you keep seeing this popup.");
+            }
+        }
+    }
+
+    private async Task HandleUserUpsert()
+    {
+        try
+        {
+            var userDetailsByName = await _user.IsUserUniqueAsync(UserDto.Name);
+
+            if (userDetailsByName != null)
+            {
+                await _jsRunTime.ToastrError("User name already exists.");
+                return;
+            }
+
+            UserDto.Description = await QuillHtml.GetHTML();
+            if (UserDto.Id != 0 && Title == "Update")
+            {
+                var updateResult = await _user.UpdateUserAsync(UserDto);
+                await _jsRunTime.ToastrSuccess("Hotel room updated successfully.");
+            }
+            else
+            {
+                var createdResult = await _user.CreateUserAsync(UserDto);
+                await _jsRunTime.ToastrSuccess("Usercreated successfully.");
+            }
+        }
+        catch (Exception ex)
+        {
+            // log exception
+        }
+
+        _navigationManager.NavigateTo("user");
+    }
+}
