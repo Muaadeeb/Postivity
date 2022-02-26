@@ -1864,7 +1864,7 @@
           "lib/netstandard2.0/NuGet.Versioning.dll": {}
         }
       },
-      "Radzen.Blazor/3.15.2": {
+      "Radzen.Blazor/3.16.0": {
         "type": "package",
         "dependencies": {
           "LibSassBuilder": "2.0.1",
@@ -6381,10 +6381,10 @@
         "nuget.versioning.nuspec"
       ]
     },
-    "Radzen.Blazor/3.15.2": {
-      "sha512": "KlNfXNy3miobmXUZJeLkeRIDpI6N3FaszVFiVrjdplVYUvA+1kmMhBPP+fEZel4CbGVEDsSp0EZFnBfiUxN0gw==",
+    "Radzen.Blazor/3.16.0": {
+      "sha512": "Ix6gz3Xunng2Oht5+kS6/zMaNp1qb1PX7OZDydw5635zfnIOY7CKI8T0S4+JiduFdMXXrh5Yp0w3CSU1NZvn7g==",
       "type": "package",
-      "path": "radzen.blazor/3.15.2",
+      "path": "radzen.blazor/3.16.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6398,7 +6398,7 @@
         "lib/net5.0/Radzen.Blazor.xml",
         "lib/netstandard2.1/Radzen.Blazor.dll",
         "lib/netstandard2.1/Radzen.Blazor.xml",
-        "radzen.blazor.3.15.2.nupkg.sha512",
+        "radzen.blazor.3.16.0.nupkg.sha512",
         "radzen.blazor.nuspec",
         "staticwebassets/Radzen.Blazor.js",
         "staticwebassets/css/dark-base.css",
@@ -10517,7 +10517,7 @@
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.2",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 6.0.2",
       "Models >= 1.0.0",
-      "Radzen.Blazor >= 3.15.2"
+      "Radzen.Blazor >= 3.16.0"
     ]
   },
   "packageFolders": {
@@ -10626,7 +10626,7 @@
           },
           "Radzen.Blazor": {
             "target": "Package",
-            "version": "[3.15.2, )"
+            "version": "[3.16.0, )"
           }
         },
         "imports": [

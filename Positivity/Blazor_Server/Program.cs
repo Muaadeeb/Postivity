@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 //using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using DataAccess.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,14 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+ 
+builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 
+// When we added scaffolding; it did not know about our ApplicationDbContext configuration, so it added it again.
+// We just need to detele the following line.
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
 
 
 //TODO: THis now breaks after we did update for NAME - c.f. API project startup - ApplicationUser.
@@ -70,7 +78,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
 

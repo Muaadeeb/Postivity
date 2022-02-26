@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Joj2/eKFRMrK354KC9qBSObGPpHGjs9Y01pIOT1wM5XR2OvyP6oquKQ44QJB1TlMrt7UMxzTaDEMxzTuGB+psg==",
+  "dgSpecHash": "KLvpEIlAGovv9BPffbG6WDEMwsSbs7rl60UvASI3FNm4ZSnZux8jWqeJmKENkFAK/PiwENgEi/AoTHpnFLO2Ag==",
   "success": true,
   "projectFilePath": "C:\\Users\\Owner\\source\\repos\\Postivity\\Positivity\\Blazor_Server\\Blazor_Server.csproj",
   "expectedPackageFiles": [
@@ -103,7 +103,7 @@
     "C:\\Users\\Owner\\.nuget\\packages\\nuget.projectmodel\\5.11.0\\nuget.projectmodel.5.11.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\nuget.protocol\\5.11.0\\nuget.protocol.5.11.0.nupkg.sha512",
     "C:\\Users\\Owner\\.nuget\\packages\\nuget.versioning\\5.11.0\\nuget.versioning.5.11.0.nupkg.sha512",
-    "C:\\Users\\Owner\\.nuget\\packages\\radzen.blazor\\3.15.2\\radzen.blazor.3.15.2.nupkg.sha512",
+    "C:\\Users\\Owner\\.nuget\\packages\\radzen.blazor\\3.16.0\\radzen.blazor.3.16.0.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Microsoft\\Xamarin\\NuGet\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
